@@ -1,0 +1,32 @@
+[
+    {
+        "company_name": "Microsoft",
+        "about_company": "A technology company that develops software, cloud services, AI products, and business solutions.",
+        "owner": "Satya Nadella",
+        "employees": 228000,
+        "contact_information": "https://www.microsoft.com"
+    },
+    {
+        "company_name": "Infosys",
+        "about_company": "djjn",
+        "owner": "sing",
+        "employees": 1000,
+        "contact_information": "chxjxj"
+    },
+    {
+        "company_name": "TESLA",
+        "about_company": "oijn",
+        "owner": "Divya",
+        "employees": 9080,
+        "contact_information": "jhcdg",
+        "co-owner": "dev"
+    },
+    {
+        "company_name": "micron",
+        "about_company": "it a semiconductor company",
+        "owner": "m",
+        "employees": 3000,
+        "contact_information": "jkllll",
+        "co-owner": "Divya"
+    }
+]

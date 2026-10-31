@@ -1,0 +1,38 @@
+[
+    {
+        "Book_ID": 1,
+        "book_name": "New_Book",
+        "author_name": "New_Author",
+        "price": "New_Price"
+    },
+    {
+        "Book_ID": 2,
+        "book_name": "Atomic Habits",
+        "author_name": "James Clear",
+        "price": 500.0
+    },
+    {
+        "Book_ID": 3,
+        "book_name": "Harry",
+        "author_name": "JK Rowling",
+        "price": 1000.0
+    },
+    {
+        "Book_ID": 4,
+        "book_name": "The Psychology of Money",
+        "author_name": "Morgan Housel",
+        "price": 350
+    },
+    {
+        "Book_ID": 5,
+        "book_name": "Naruto",
+        "author_name": "manga",
+        "price": 1000.0
+    },
+    {
+        "Book_ID": 6,
+        "book_name": "hdjfhj",
+        "author_name": "dfhjkh",
+        "price": 666.0
+    }
+]
