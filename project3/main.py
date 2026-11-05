@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Depends
-from models import Product
+from fastapi import FastAPI, Depends, HTTPException
+from models import Product, ProductUpdate, ProductCreate
 from database import SessionLocal, engine
 import db_models
 from sqlalchemy.orm import Session
@@ -52,30 +52,37 @@ def get_product_by_id(id:int, db:Session = Depends(get_db)):
     if db_product:
         return db_product
 
-    return "product not found"
+    raise HTTPException(status_code=404, detail="Product not found")
 
 @app.post("/products")
-def add_product(product: Product, db:Session = Depends(get_db)):
+def add_product(product: ProductCreate, db:Session = Depends(get_db)):
     db_product= db.query(db_models.Product).filter(db_models.Product.id== product.id).first()
     if db_product:
-        return "product already exists"
-
+        raise HTTPException(status_code=400, detail="Product already exists")
+    
+    if db_product is None:
+        max_id= db.query(db_models.Product).order_by(db_models.Product.id.desc()).first().id
+        product.id= max_id + 1
     db.add(db_models.Product(**product.model_dump()))
     db.commit()
-    return product
+    raise HTTPException(status_code=201, detail="Product added successfully")
 
 @app.put("/products")
-def update_product(id:int, product:Product, db:Session = Depends(get_db)):
+def update_product(id:int, product:ProductUpdate, db:Session = Depends(get_db)):
     db_product= db.query(db_models.Product).filter(db_models.Product.id == id).first()
     if db_product:
-        db_product.name = product.name
-        db_product.description = product.description
-        db_product.price = product.price
-        db_product.quantity = product.quantity
+        if product.name is not None:
+            db_product.name = product.name
+        if product.description is not None:
+            db_product.description = product.description
+        if product.price is not None:
+            db_product.price = product.price
+        if product.quantity is not None:
+            db_product.quantity = product.quantity
         db.commit()
-        return "product updated successfully"
+        raise HTTPException(status_code=200, detail="Product updated successfully")
     else:
-        return "Product not found"
+        raise HTTPException(status_code=404, detail="Product not found")
 
 
 @app.delete("/products")
@@ -86,5 +93,6 @@ def delete_product(id:int, db:Session = Depends(get_db)):
         db.commit()
         return "product deleted successfully"
     else:
-        return "product not found"
+        raise HTTPException(status_code=404, detail="Product not found")
+        
         
