@@ -49,9 +49,13 @@ async def generate_response(message:Message):
             )
         if not response.function_calls: 
             return {"answer": response.text}
+        print("user query:", message.query)
+        print("gemini response:", response)
         
         call = response.function_calls[0]
         result = get_current_temperature(**call.args)
+        print("function call:", call)
+        print("function result:", result)
 
         second_response = await client.aio.models.generate_content(
             model="gemini-3.6-flash",
@@ -64,6 +68,8 @@ async def generate_response(message:Message):
             ],
             config=config
         )
+        print("second response:", second_response)
+        
         return {"answer": second_response.text}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
